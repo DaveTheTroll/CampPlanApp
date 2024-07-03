@@ -35,7 +35,9 @@
             this.map = new CampPlanApp.MapPanel();
             this.listViewTents = new System.Windows.Forms.ListView();
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.toolStripStatusLabelLocation = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip.SuspendLayout();
+            this.statusStrip.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,25 +62,29 @@
             // testDataToolStripMenuItem
             // 
             this.testDataToolStripMenuItem.Name = "testDataToolStripMenuItem";
-            this.testDataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.testDataToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.testDataToolStripMenuItem.Text = "&Test Data";
             this.testDataToolStripMenuItem.Click += new System.EventHandler(this.testDataToolStripMenuItem_Click);
             // 
             // statusStrip
             // 
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabelLocation});
             this.statusStrip.Location = new System.Drawing.Point(0, 516);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(988, 22);
             this.statusStrip.TabIndex = 1;
             this.statusStrip.Text = "statusStrip1";
             // 
-            // mapPanel
+            // map
             // 
             this.map.Dock = System.Windows.Forms.DockStyle.Fill;
             this.map.Location = new System.Drawing.Point(3, 3);
-            this.map.Name = "mapPanel";
+            this.map.Name = "map";
             this.map.Size = new System.Drawing.Size(776, 486);
             this.map.TabIndex = 0;
+            this.map.Tents = null;
+            this.map.ScaledMouseMove += new CampPlanApp.ScaledMouseEvent(this.map_ScaledMouseMove);
             // 
             // listViewTents
             // 
@@ -104,6 +110,12 @@
             this.tableLayoutPanel.Size = new System.Drawing.Size(988, 492);
             this.tableLayoutPanel.TabIndex = 3;
             // 
+            // toolStripStatusLabelLocation
+            // 
+            this.toolStripStatusLabelLocation.Name = "toolStripStatusLabelLocation";
+            this.toolStripStatusLabelLocation.Size = new System.Drawing.Size(12, 17);
+            this.toolStripStatusLabelLocation.Text = "-";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -118,6 +130,8 @@
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.tableLayoutPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -133,5 +147,6 @@
         private ListView listViewTents;
         private MapPanel map;
         private TableLayoutPanel tableLayoutPanel;
+        private ToolStripStatusLabel toolStripStatusLabelLocation;
     }
 }

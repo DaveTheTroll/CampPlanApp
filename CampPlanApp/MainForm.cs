@@ -21,5 +21,11 @@ namespace CampPlanApp
             map.Tents.Add(new Tent(pavilion, Color.Beige, new PointF(0,0)));
             map.Invalidate();
         }
+
+        void map_ScaledMouseMove(ScaledMouseEventArgs e)
+        {
+            PointF loc = e.ScaledLocation;
+            toolStripStatusLabelLocation.Text = $"{loc.X:0.0}, {loc.Y:0.0}";
+        }
     }
 }

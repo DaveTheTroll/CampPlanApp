@@ -23,7 +23,7 @@
 
         protected override void OnMouseClick(MouseEventArgs e)
         {
-            base.OnMouseClick(e);
+            base.OnMouseClick(e);/*
             bool changed = false;
             PointF pnt = ScaledLocation(e.Location);
             foreach(Tent tent in Tents.Reverse())
@@ -38,7 +38,7 @@
             if (changed)
             {
                 Invalidate();
-            }
+            }*/
         }
     }
 }
