@@ -32,10 +32,11 @@
             this.dataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabelLocation = new System.Windows.Forms.ToolStripStatusLabel();
             this.map = new CampPlanApp.MapPanel();
             this.listViewTents = new System.Windows.Forms.ListView();
+            this.columnTent = new System.Windows.Forms.ColumnHeader();
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.toolStripStatusLabelLocation = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
@@ -76,30 +77,46 @@
             this.statusStrip.TabIndex = 1;
             this.statusStrip.Text = "statusStrip1";
             // 
+            // toolStripStatusLabelLocation
+            // 
+            this.toolStripStatusLabelLocation.Name = "toolStripStatusLabelLocation";
+            this.toolStripStatusLabelLocation.Size = new System.Drawing.Size(12, 17);
+            this.toolStripStatusLabelLocation.Text = "-";
+            // 
             // map
             // 
             this.map.Dock = System.Windows.Forms.DockStyle.Fill;
             this.map.Location = new System.Drawing.Point(3, 3);
             this.map.Name = "map";
-            this.map.Size = new System.Drawing.Size(776, 486);
+            this.map.Size = new System.Drawing.Size(749, 486);
             this.map.TabIndex = 0;
             this.map.Tents = null;
+            this.map.SelectionChanged += new System.Action<CampPlanApp.MapPanel>(this.map_SelectionChanged);
             this.map.ScaledMouseMove += new CampPlanApp.ScaledMouseEvent(this.map_ScaledMouseMove);
             // 
             // listViewTents
             // 
+            this.listViewTents.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnTent});
             this.listViewTents.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listViewTents.Location = new System.Drawing.Point(785, 3);
+            this.listViewTents.Location = new System.Drawing.Point(758, 3);
             this.listViewTents.Name = "listViewTents";
-            this.listViewTents.Size = new System.Drawing.Size(200, 486);
+            this.listViewTents.Size = new System.Drawing.Size(227, 486);
             this.listViewTents.TabIndex = 0;
             this.listViewTents.UseCompatibleStateImageBehavior = false;
+            this.listViewTents.View = System.Windows.Forms.View.Details;
+            this.listViewTents.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.listViewTents_ItemSelectionChanged);
+            // 
+            // columnTent
+            // 
+            this.columnTent.Text = "Tent";
+            this.columnTent.Width = 150;
             // 
             // tableLayoutPanel
             // 
             this.tableLayoutPanel.ColumnCount = 2;
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 76.47059F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 23.52941F));
             this.tableLayoutPanel.Controls.Add(this.listViewTents, 1, 0);
             this.tableLayoutPanel.Controls.Add(this.map, 0, 0);
             this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -109,12 +126,6 @@
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel.Size = new System.Drawing.Size(988, 492);
             this.tableLayoutPanel.TabIndex = 3;
-            // 
-            // toolStripStatusLabelLocation
-            // 
-            this.toolStripStatusLabelLocation.Name = "toolStripStatusLabelLocation";
-            this.toolStripStatusLabelLocation.Size = new System.Drawing.Size(12, 17);
-            this.toolStripStatusLabelLocation.Text = "-";
             // 
             // MainForm
             // 
@@ -148,5 +159,6 @@
         private MapPanel map;
         private TableLayoutPanel tableLayoutPanel;
         private ToolStripStatusLabel toolStripStatusLabelLocation;
+        private ColumnHeader columnTent;
     }
 }

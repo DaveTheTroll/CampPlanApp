@@ -21,24 +21,51 @@
         public IList<Tent> Tents {get; set;}
         List<Tent> SelectedTents { get; } = new List<Tent>();
 
+        public bool Selected(Tent tent) => SelectedTents.Contains(tent);
+        public void SetSelection(IEnumerable<Tent> selection)
+        {
+            SelectedTents.Clear();
+            SelectedTents.AddRange(selection);
+            Invalidate();
+        }
+
         protected override void OnMouseClick(MouseEventArgs e)
         {
-            base.OnMouseClick(e);/*
-            bool changed = false;
-            PointF pnt = ScaledLocation(e.Location);
-            foreach(Tent tent in Tents.Reverse())
+            base.OnMouseClick(e);
+            if (e.Button == MouseButtons.Left)
             {
-                if (tent.Hit(pnt))
+                bool changed = false;
+                PointF pnt = ScaledLocation(e.Location);
+                foreach (Tent tent in Tents.Reverse())
                 {
-                    // Toggle selected state of tent
-                    changed = true;
-                    break;
+                    if (tent.Contains(pnt))
+                    {
+                        // Toggle selected state of tent
+                        changed = true;
+                        ToggleSelection(tent);
+                        break;
+                    }
+                }
+                if (changed)
+                {
+                    Invalidate();
+                    SelectionChanged?.Invoke(this);
                 }
             }
-            if (changed)
-            {
-                Invalidate();
-            }*/
         }
+
+        void ToggleSelection(Tent tent)
+        {
+            if (Selected(tent))
+            {
+                SelectedTents.Remove(tent);
+            }
+            else
+            {
+                SelectedTents.Add(tent);
+            }
+        }
+
+        public event Action<MapPanel> SelectionChanged;
     }
 }

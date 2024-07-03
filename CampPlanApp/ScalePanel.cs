@@ -32,10 +32,6 @@ namespace CampPlanApp
         {
             RectangleF limits = ContentsLimits;
             float unitScale = Math.Min(Width / limits.Width, Height / limits.Height);   // units/px
-            /*
-            float x = (pnt.X + (limits.Left + limits.Right) / 2) * unitScale/scale - offset.X - Width/2;
-            float y = (pnt.Y + (limits.Top + limits.Bottom) / 2) * unitScale/scale - offset.Y - Height/2;
-            */
             float x = ((pnt.X - Width / 2 - offset.X) / scale / unitScale) + (limits.Left + limits.Right) / 2;
             float y = ((pnt.Y - Height / 2 - offset.Y) / -scale / unitScale) + (limits.Top + limits.Bottom) / 2;
             return new PointF(x, y);
@@ -44,10 +40,10 @@ namespace CampPlanApp
         void PaintGrid(Graphics g, float unitScale)
         {
             Pen pen = new Pen(Color.FromArgb(50, Color.Black), 1 / unitScale);
-            for(int x=-10; x<=10; x++)
+            for(int x=-100; x<=100; x+=5)
             {
-                g.DrawLine(pen, x, -10, x, 10);
-                g.DrawLine(pen, -10, x, 10, x);
+                g.DrawLine(pen, x, -100, x, 100);
+                g.DrawLine(pen, -100, x, 100, x);
             }
         }
 

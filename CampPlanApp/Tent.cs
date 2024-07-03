@@ -20,20 +20,24 @@
 
     public class Tent
     {
-        public Tent(TentType type, Color color, PointF? location=null, float rotation=0)
+        public Tent(string name, TentType type, Color color, PointF? location=null, float rotation=0)
         {
+            this.Name = name;
             this.Type = type;
             this.Color = color;
             this.Location = location;
             this.Rotation = rotation;
         }
+        public string Name { get; set; }
         public TentType Type { get; set; }
         public PointF? Location { get; set; }
         public float Rotation { get; set; }
         public bool HasLocation => Location.HasValue;
         public Color Color { get; set; }
 
-        public RectangleF Bounds => new RectangleF(Location.Value.X - Type.Size.Width / 2, Location.Value.Y - Type.Size.Height / 2, Type.Size.Width, Type.Size.Height);
-        public RectangleF GuyBounds => new RectangleF(Location.Value.X - Type.Size.Width / 2 - Type.Guys, Location.Value.Y - Type.Size.Height / 2 - Type.Guys, Type.Size.Width + Type.Guys*2, Type.Size.Height + Type.Guys * 2);
+        public RectangleF Bounds => Location.HasValue ? new RectangleF(Location.Value.X - Type.Size.Width / 2, Location.Value.Y - Type.Size.Height / 2, Type.Size.Width, Type.Size.Height) : RectangleF.Empty;
+        public RectangleF GuyBounds => Location.HasValue ? new RectangleF(Location.Value.X - Type.Size.Width / 2 - Type.Guys, Location.Value.Y - Type.Size.Height / 2 - Type.Guys, Type.Size.Width + Type.Guys*2, Type.Size.Height + Type.Guys * 2) : RectangleF.Empty;
+
+        public bool Contains(PointF pnt) => Bounds.Contains(pnt);
     }
 }
