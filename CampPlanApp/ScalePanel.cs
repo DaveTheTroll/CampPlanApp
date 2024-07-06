@@ -17,29 +17,33 @@ namespace CampPlanApp
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
             RectangleF limits = ContentsLimits;
-            float unitScale = Math.Min(Width / limits.Width, Height / limits.Height);   // units/px
             g.TranslateTransform(offset.X + Width / 2, offset.Y + Height / 2);
-            g.ScaleTransform(scale * unitScale, -scale * unitScale);
+            g.ScaleTransform(scale, -scale);
             g.TranslateTransform(-(limits.Left + limits.Right) / 2, -(limits.Top + limits.Bottom) / 2);
 
             if (Grid)
-                PaintGrid(g, unitScale);
+                PaintGrid(g);
 
             Render(g);
         }
 
-        public PointF ScaledLocation(Point pnt)
+        public void ZoomToContents()
         {
             RectangleF limits = ContentsLimits;
-            float unitScale = Math.Min(Width / limits.Width, Height / limits.Height);   // units/px
-            float x = ((pnt.X - Width / 2 - offset.X) / scale / unitScale) + (limits.Left + limits.Right) / 2;
-            float y = ((pnt.Y - Height / 2 - offset.Y) / -scale / unitScale) + (limits.Top + limits.Bottom) / 2;
+            scale = Math.Min(Width / limits.Width, Height / limits.Height);
+            offset = limits.Centre().ToPoint();
+        }
+
+        public PointF ScaledLocation(Point pnt)
+        {
+            float x = ((pnt.X - Width / 2 - offset.X) / scale);
+            float y = ((pnt.Y - Height / 2 - offset.Y) / -scale);
             return new PointF(x, y);
         }
 
-        void PaintGrid(Graphics g, float unitScale)
+        void PaintGrid(Graphics g)
         {
-            Pen pen = new Pen(Color.FromArgb(50, Color.Black), 1 / unitScale);
+            Pen pen = new Pen(Color.FromArgb(50, Color.Black), 1/scale);
             for(int x=-100; x<=100; x+=5)
             {
                 g.DrawLine(pen, x, -100, x, 100);
@@ -91,7 +95,9 @@ namespace CampPlanApp
         {
             base.OnMouseWheel(e);
             float factor = (float)Math.Pow(0.9f, -e.Delta / 200.0);
+            float oldScale = scale;
             scale *= factor;
+
             Invalidate();
         }
         #endregion

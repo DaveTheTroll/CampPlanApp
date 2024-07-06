@@ -21,6 +21,7 @@ namespace CampPlanApp
             map.Tents.Add(new Tent("Cream Pavilion", pavilion, Color.Beige, new PointF(0,0)));
             map.Invalidate();
             RefreshTentList();
+            map.ZoomToContents();
         }
 
         void map_ScaledMouseMove(ScaledMouseEventArgs e)

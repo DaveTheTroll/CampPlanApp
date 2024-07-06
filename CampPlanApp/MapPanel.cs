@@ -2,7 +2,28 @@
 {
     public class MapPanel : ScalePanel
     {
-        protected override RectangleF ContentsLimits => new RectangleF(-20, -20, 80, 40);
+        protected override RectangleF ContentsLimits
+        {
+            get
+            {
+                if (Tents == null)
+                {
+                    return new RectangleF(-10, -10, 20, 20);
+                }
+                IEnumerable<Tent> tents = Tents.Where(t => t.HasLocation);
+                if (!tents.Any())
+                {
+                    return new RectangleF(-10, -10, 20, 20);
+                }
+
+                RectangleF rc = new RectangleF(tents.First().Bounds.Left, tents.First().Bounds.Top, 0, 0);
+                foreach(Tent tent in tents)
+                {
+                    rc = RectangleF.Union(rc, tent.GuyBounds);
+                }
+                return rc;
+            }
+        }
 
         protected override void Render(Graphics g)
         {
