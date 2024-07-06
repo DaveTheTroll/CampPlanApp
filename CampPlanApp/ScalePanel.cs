@@ -97,6 +97,9 @@ namespace CampPlanApp
             float factor = (float)Math.Pow(0.9f, -e.Delta / 200.0);
             float oldScale = scale;
             scale *= factor;
+            float xo = e.Location.X - Width / 2 - (e.Location.X - Width / 2 - offset.X) * scale / oldScale;
+            float yo = e.Location.Y - Height / 2 - (e.Location.Y - Height / 2 - offset.Y) * scale / oldScale;
+            offset = new Point((int)(xo + 0.5), (int)(yo + 0.5));
 
             Invalidate();
         }
